@@ -1,0 +1,2 @@
+# Botathan
+My Discord bot (:
