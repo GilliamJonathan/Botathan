@@ -12,7 +12,7 @@ using System.IO;
 using Google.Apis.Customsearch.v1;
 using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.Services;
-
+using System.Text.RegularExpressions;
 
 class Botathan
 {
@@ -21,6 +21,7 @@ class Botathan
         new Botathan().Start();
     }
     private Random ran;
+    String path;
     private string apiKey = "AIzaSyC4znIVRxU53mYW5zBxZb48d0f6ccf4yJI";
     private string cx = "017085880482068702817:mkkqkl2yybo"; //Custom search engine id
     private string query = "error"; //Default search
@@ -29,7 +30,6 @@ class Botathan
     public void Start()
     {
         ran = new Random();
-
         //creates _client
         _client = new DiscordClient(x =>
         {
@@ -74,11 +74,31 @@ class Botathan
     {
         //creates search service
         var svc = new Google.Apis.Customsearch.v1.CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
-        
+
         //creates command service
         var cService = _client.GetService<CommandService>();
 
-        cService.CreateCommand("Ping")
+        cService.CreateCommand("purge")
+        .Alias(new String[] { "purge", "remove" })
+        .Description("Clears the chat for the given amount")
+        .AddCheck((cm, u, ch) => u.ServerPermissions.Administrator)
+        .Parameter("amount", ParameterType.Required)
+        .Do(async (e) =>
+        {
+            int amountToDelete = 0;
+            if (e.GetArg("amount").ToLower().Equals("all"))
+                amountToDelete = 100;
+            else
+                int.TryParse(e.GetArg("amount"), out amountToDelete);
+
+            Message[] messagesToDelete;
+            messagesToDelete = await e.Channel.DownloadMessages(amountToDelete);
+
+            await e.Channel.DeleteMessages(messagesToDelete);
+            await e.Channel.SendMessage($"Deleted {amountToDelete} messages, consider your secret safe");
+        });
+
+        cService.CreateCommand("ping")
         .Alias(new String[] { "ping" })
         .Description("Pings the bot")
         .Do(async e =>
@@ -86,13 +106,87 @@ class Botathan
             await e.Channel.SendMessage("pong");
         });
 
-        cService.CreateCommand("Image Search")
-        .Alias(new String[] { "search", "send", "searchfor" })
-        .Description("Sends a photo")
+        cService.CreateCommand("kick")
+        .Alias(new String[] { "kick" })
+        .Description("Kicks a player")
+        .AddCheck((cm, u, ch) => u.ServerPermissions.KickMembers)
+        .Parameter("player", ParameterType.Required)
+        .Parameter("reason", ParameterType.Unparsed)
+        .Do(async e =>
+        {
+            if (e.Channel.FindUsers(e.GetArg("player")).ToArray().Length > 0)
+            {
+                await e.Channel.FindUsers(e.GetArg("player")).ToArray()[0].Kick();
+                await e.Channel.SendMessage(e.GetArg("player") + " was kicked for " + e.GetArg("reason"));
+            }
+            else
+                await e.Channel.SendMessage("Unable to kick player");
+        });
+
+        cService.CreateCommand("ban")
+        .Alias(new String[] { "ban" })
+        .Description("Bans a player")
+        .AddCheck((cm, u, ch) => u.ServerPermissions.BanMembers)
+        .Parameter("player", ParameterType.Required)
+        .Parameter("reason", ParameterType.Unparsed)
+        .Do(async e =>
+        {
+            if (e.Channel.FindUsers(e.GetArg("player")).ToArray().Length > 0)
+            {
+                await e.Server.Ban(e.Channel.FindUsers(e.GetArg("player")).ToArray()[0],0);
+                await e.Channel.SendMessage(e.GetArg("player") + " was banned for " + e.GetArg("reason"));
+            }
+            else
+                await e.Channel.SendMessage("Unable to ban player");
+
+        });
+
+        cService.CreateCommand("unban")
+        .Alias(new String[] { "unban" })
+        .Description("Unbans a player")
+        .AddCheck((cm, u, ch) => u.ServerPermissions.BanMembers)
+        .Parameter("player", ParameterType.Required)
+        .Do(async e =>
+        {
+            if (e.Channel.FindUsers(e.GetArg("player")).ToArray().Length > 0)
+            {
+                await e.Server.Unban(e.Channel.FindUsers(e.GetArg("player")).ToArray()[0], 0);
+                await e.Channel.SendMessage(e.GetArg("player") + " was unabnned");
+            }
+            else
+                await e.Channel.SendMessage("Unable to unban player");
+
+        });
+
+        cService.CreateCommand("pastebin")
+        .Alias(new String[] { "pastebin", "badcode" })
+        .Description("Sends the pastebin link")
+        .Do(async e =>
+        {
+            await e.Channel.SendMessage("Nobody wants to see your bad code in chat, send a link via pastebin");
+            await e.Channel.SendMessage("http://pastebin.com/");
+        });
+
+        cService.CreateCommand("image")
+        .Alias(new String[] { "search", "send", "searchfor", "image" })
+        .Description("Sends a random photo from google")
         .Parameter("search", ParameterType.Unparsed)
         .Do(async e =>
         {
-            query = e.GetArg("search").Replace("_", " "); //formats search to be engine friendly
+            int index = 0;
+            Regex rgx = new Regex(@"(-\d{1,3})");
+            String temp = e.GetArg("search");
+
+            if (temp.Contains(' '))
+                temp = temp.Substring(0, e.GetArg("search").IndexOf(' '));
+                
+            if (rgx.IsMatch(temp))
+            {
+                index = System.Convert.ToInt32(temp.Substring(1));
+                query = e.GetArg("search").Substring(e.GetArg("search").IndexOf(' ')).Replace("_", " ");
+            }
+            else
+                query = e.GetArg("search"); //formats search to be engine friendly
 
             var listRequest = svc.Cse.List(query);
 
@@ -111,23 +205,42 @@ class Botathan
             //searches for images only
             listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
 
-            listRequest.Start = ran.Next(0, 100); //picks a random image from the top 100
+            if (index == 0)
+                index = ran.Next(1, 100); //picks a random image from the top 100
+
+            Console.WriteLine("radom index: " + index);
+
+            listRequest.Start = index;
             var search = listRequest.Execute();
 
             WebClient wc = new WebClient(); //creaes webclient
             byte[] bytes = wc.DownloadData(search.Items[0].Link); //gets the iomage from the enginesearch
             MemoryStream ms = new MemoryStream(bytes); //converts image into a memoryStorage
 
+            await e.Channel.SendMessage("[-" + index + " " + query + "]");
             await e.Channel.SendFile(".jpg", ms); //send image as jpeg
         });
 
-        cService.CreateCommand("Gif Search")
+        cService.CreateCommand("gif")
         .Alias(new String[] { "gif", "sendgif", "searchforgif" })
         .Description("Sends a gif")
         .Parameter("search", ParameterType.Unparsed)
         .Do(async e =>
         {
-            query = e.GetArg("search").Replace("_", " "); //formats search to be engine friendly
+            int index = 0;
+            Regex rgx = new Regex(@"(-\d{1,3})");
+            String temp = e.GetArg("search");
+
+            if (temp.Contains(' '))
+                temp = temp.Substring(0, e.GetArg("search").IndexOf(' '));
+
+            if (rgx.IsMatch(temp))
+            {
+                index = System.Convert.ToInt32(temp.Substring(1));
+                query = e.GetArg("search").Substring(e.GetArg("search").IndexOf(' ')).Replace("_", " ");
+            }
+            else
+                query = e.GetArg("search"); //formats search to be engine friendly
 
             var listRequest = svc.Cse.List(query);
 
@@ -149,17 +262,23 @@ class Botathan
             //searches for images only
             listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
 
-            listRequest.Start = ran.Next(0, 100); //picks a random image from the top 100
+            if (index == 0)
+                index = ran.Next(1, 100); //picks a random image from the top 100
+
+            Console.WriteLine("radom index: " + index);
+
+            listRequest.Start = index;
             var search = listRequest.Execute();
 
             WebClient wc = new WebClient(); //creaes webclient
             byte[] bytes = wc.DownloadData(search.Items[0].Link); //gets the iomage from the enginesearch
             MemoryStream ms = new MemoryStream(bytes); //converts image into a memoryStorage
 
+            await e.Channel.SendMessage("[-" + index + " " + query + "]");
             await e.Channel.SendFile(".gif", ms); //send image as gif
-                
         });
-    }
+
+    } 
 
     public void Log(object sender, LogMessageEventArgs e)
     {
@@ -168,10 +287,8 @@ class Botathan
 
     public void Log(Server s, String message)
     {
-
-        String path;
-        path = @"Desktop/Botathan/logs" + s.ToString() + @"\" + DateTime.Now.Year.ToString() + @"\";
-        //path = @"G:\Botathan\logs\" + s.ToString() + @"\" + DateTime.Now.Year.ToString() + @"\";
+        path = @"Desktop/Botathan/logs/" + s.ToString() + @"\" + DateTime.Now.Year.ToString() + @"\";
+        //path = @"H:\Botathan\logs\" + s.ToString() + @"\" + DateTime.Now.Year.ToString() + @"\";
         Console.WriteLine(message);
         Directory.CreateDirectory(path);
         using (System.IO.StreamWriter file =
@@ -186,27 +303,32 @@ class Botathan
     {
         _client.UserJoined += (s, e) =>
         {
-            Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Joined the server");
+            if (e.Server != null)
+                Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Joined the server");
         };
 
         _client.UserLeft += (s, e) =>
         {
-            Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Left the server");
+            if (e.Server != null)
+                Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Left the server");
         };
 
         _client.UserBanned += (s, e) =>
         {
-            Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Was banned from the server");
+            if (e.Server != null)
+                Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Was banned from the server");
         };
 
         _client.UserUnbanned += (s, e) =>
         {
-            Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Was unbanned from the server");
+            if (e.Server != null)
+                Log(e.Server, $"**[{DateTime.Now.ToString("h:mm:ss tt")}][{e.User.Name}] Was unbanned from the server");
         };
 
         _client.MessageReceived += (s, e) =>
         {
-            Log(e.Server, $"[{DateTime.Now.ToString("h:mm:ss tt")}][{e.Channel}] {e.User.Name}:{e.Message.Text}");
+            if(e.Server != null)
+                Log(e.Server, $"[{DateTime.Now.ToString("h:mm:ss tt")}][{e.Channel}] {e.User.Name}:{e.Message.Text}");
         };
 
         //Console.WriteLine($"[{e.Severity}] [{e.Source}] {e.Message}");

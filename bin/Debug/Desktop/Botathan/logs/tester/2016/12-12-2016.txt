@@ -1,0 +1,44 @@
+[6:25:13 PM][general] JoNation_:!pastbin
+[6:25:18 PM][general] JoNation_:!pastebin
+[6:25:31 PM][general] JoNation_:!help
+[6:25:41 PM][general] JoNation_:!ping
+[6:27:39 PM][general] JoNation_:!help
+[6:27:55 PM][general] JoNation_:@Botathan-dev !help
+[6:28:39 PM][general] JoNation_:!help
+[6:28:49 PM][general] JoNation_:!help
+[6:29:07 PM][general] JoNation_:!ping
+[6:30:08 PM][general] JoNation_:$ping
+[6:30:09 PM][general] Botathan-dev:pong
+[6:30:13 PM][general] JoNation_:$pastebin
+[6:30:17 PM][general] JoNation_:$pastbin
+[6:30:17 PM][general] Botathan-dev:Nobody wants to see you bad code in chat, send a link via pastbin
+[6:30:18 PM][general] Botathan-dev:http://pastebin.com/
+[7:10:07 PM][general] JoNation_:$send cat
+[7:10:23 PM][general] JoNation_:$send cat
+[7:16:39 PM][general] JoNation_:$send cat
+[7:17:08 PM][general] JoNation_:$send cat
+[7:17:17 PM][general] JoNation_:$send cat
+[7:17:54 PM][general] JoNation_:$send cat
+[7:18:23 PM][general] JoNation_:$send cat
+[7:19:26 PM][general] JoNation_:$semd cat
+[7:19:32 PM][general] JoNation_:$send cat
+[7:57:56 PM][general] JoNation_:$send cat
+[8:01:37 PM][general] JoNation_:$send cat
+[8:01:38 PM][general] Botathan-dev:79
+[8:01:38 PM][general] Botathan-dev:
+[8:01:53 PM][general] JoNation_:$send -79 cat
+[8:01:54 PM][general] Botathan-dev:79
+[8:01:54 PM][general] Botathan-dev:
+[8:02:41 PM][general] JoNation_:$send cat
+[8:02:41 PM][general] Botathan-dev:[-64 cat]
+[8:02:41 PM][general] Botathan-dev:
+[8:04:08 PM][general] JoNation_:$send cat and dog
+[8:04:09 PM][general] Botathan-dev:[-11 cat and dog]
+[8:04:09 PM][general] Botathan-dev:
+[8:07:31 PM][general] JoNation_:$gif cat and dog
+[8:07:32 PM][general] Botathan-dev:[-82 cat and dog]
+[8:07:34 PM][general] Botathan-dev:
+[8:07:48 PM][general] JoNation_:gif -82 cat and dog
+[8:07:53 PM][general] JoNation_:$gif -82 cat and dog
+[8:07:53 PM][general] Botathan-dev:[-82  cat and dog]
+[8:07:55 PM][general] Botathan-dev:
