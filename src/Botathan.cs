@@ -54,8 +54,8 @@ class Botathan
         {
             if (!e.Message.IsAuthor)
             {
-                if (e.Message.RawText.ToUpper().Replace(" ", "").Replace("S", "").Equals("DICK"))
-                    await e.Channel.SendMessage("Stop trying to summon Jake");
+                if (e.Message.RawText.ToUpper().Contains("RIP BOTATHAN"))
+                    await e.Channel.SendMessage("Stop making fun of me, I'm doing the best I can :cry:");
             }
 
         };
