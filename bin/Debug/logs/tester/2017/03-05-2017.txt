@@ -1,0 +1,56 @@
+[7:31:39 PM][general] JoNation_:/roulette
+[7:31:39 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:31:39 PM][general] Botathan-dev:_click_
+[7:31:49 PM][general] JoNation_:/roulette
+[7:31:49 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:31:49 PM][general] Botathan-dev:_click_
+[7:31:55 PM][general] JoNation_:/roulette
+[7:31:55 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:31:55 PM][general] Botathan-dev:_click_
+[7:32:01 PM][general] JoNation_:/roulette
+[7:32:01 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:01 PM][general] Botathan-dev:_click_
+[7:32:06 PM][general] JoNation_:/roulette
+[7:32:06 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:06 PM][general] Botathan-dev:_click_
+[7:32:12 PM][general] JoNation_:/roulette
+[7:32:12 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:12 PM][general] Botathan-dev:_click_
+[7:32:17 PM][general] JoNation_:/roulette
+[7:32:17 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:17 PM][general] Botathan-dev:_click_
+[7:32:19 PM][general] JoNation_:/roulette
+[7:32:19 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:19 PM][general] Botathan-dev:_click_
+[7:32:22 PM][general] JoNation_:/roulette
+[7:32:22 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:32:22 PM][general] Botathan-dev:**BANG * *
+[7:33:03 PM][general] JoNation_:/roll 8
+[7:33:08 PM][general] JoNation_:/roll
+[7:33:12 PM][general] JoNation_:/dice
+[7:33:22 PM][general] JoNation_:/r
+[7:33:37 PM][general] JoNation_:/roulette
+[7:33:37 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:33:37 PM][general] Botathan-dev:_click_
+[7:33:44 PM][general] JoNation_:/rt
+[7:33:44 PM][general] Botathan-dev:_You place the revolver to your head_
+[7:33:44 PM][general] Botathan-dev:_click_
+[7:35:25 PM][general] JoNation_:/r
+[7:35:25 PM][general] Botathan-dev:Rolling a dice..
+[7:35:25 PM][general] Botathan-dev:It was a 1
+[7:35:28 PM][general] JoNation_:/r 78
+[7:35:53 PM][general] JoNation_:/r 75
+[7:35:53 PM][general] Botathan-dev:Rolling a dice..
+[7:35:53 PM][general] Botathan-dev:It was a 34
+[7:36:07 PM][general] JoNation_:/f
+[7:36:07 PM][general] Botathan-dev:Flipping a coin..
+[7:36:07 PM][general] Botathan-dev:Heads
+[7:37:13 PM][general] JoNation_:you can give me head
+[7:37:13 PM][general] Botathan-dev:OwO
+[7:37:18 PM][general] JoNation_:$purge 2
+[7:37:19 PM][general] Botathan:Deleted 2 messages, consider your secret safe
+[7:37:23 PM][general] JoNation_:/purge 2
+[7:37:52 PM][general] JoNation_:/purge 3
+[7:38:38 PM][general] JoNation_:/purge 4
+[7:38:43 PM][general] JoNation_:/p
+[7:38:46 PM][general] JoNation_:/purge all
