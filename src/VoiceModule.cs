@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 public class VoiceModule : ModuleBase
 {
-    /*
+
     public IAudioClient audioClient;
     [Command("Soundboard"), Summary("Sends a sound from the soundboard to you current voice channel")]
     public async Task Soundboard(string sound = "help")
     {
         if (sound == "help")
-            await ReplyAsync("Airhorn");
+            await ReplyAsync("Please use '!help soundboard' command");
 
         var channel = ((IGuildUser)Context.User).VoiceChannel;
 
@@ -22,18 +22,17 @@ public class VoiceModule : ModuleBase
             await ReplyAsync("User must be in a voice channel.");
             return;
         }
-        Console.WriteLine("1");
+        Console.WriteLine("Connecting to VoiceChannel");
         audioClient = await channel.ConnectAsync();
-        Console.WriteLine("2");
+        Console.WriteLine("Connected to VoiceChannel");
         await SendAsync(audioClient, "C:/Users/gilli/Downloads/2SAD4ME.mp3");
-
+        Console.WriteLine("Done");
     }
 
-    [Command("send")]
+    [Command("debug")]
     public async Task Send()
     {
-
-        await SendAsync(audioClient, "C:/Users/gilli/Downloads/2SAD4ME.mp3");
+      await Context.ReplyAsync("Unable to debug at this time");
     }
 
     private Process CreateStream(string path)
@@ -50,17 +49,16 @@ public class VoiceModule : ModuleBase
 
     private async Task SendAsync(IAudioClient client, string path)
     {
-        Console.WriteLine("3");
+        Console.WriteLine("Creating stream...");
         // Create FFmpeg using the previous example
         var ffmpeg = CreateStream(path);
-        Console.WriteLine("4");
+        Console.WriteLine("Creating output...");
         var output = ffmpeg.StandardOutput.BaseStream;
-        Console.WriteLine("5");
+        Console.WriteLine("Setting up output settings for the IAudioClient...");
         var discord = client.CreatePCMStream(AudioApplication.Music,1920);
-        Console.WriteLine("6");
+        Console.WriteLine("Outputing Audio...");
         await output.CopyToAsync(discord);
-        Console.WriteLine("7");
+        Console.WriteLine("Waiting for audio to output...");
         await discord.FlushAsync();
     }
-    */
 }

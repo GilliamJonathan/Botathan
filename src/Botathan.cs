@@ -88,7 +88,7 @@ class Botathan
         if (!(message.HasCharPrefix(cmd, ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
         // Create a Command Context
         var context = new CommandContext(client, message);
-        // Execute the command. (result does not indicate a return value, 
+        // Execute the command. (result does not indicate a return value,
         // rather an object stating if the command executed succesfully)
         var result = await commands.ExecuteAsync(context, argPos, map);
         if (!result.IsSuccess)
