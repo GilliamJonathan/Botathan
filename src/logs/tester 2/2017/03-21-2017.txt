@@ -1,0 +1,9 @@
+[8:07:21 PM][general] Botathan-dev#6377:hello
+[8:07:25 PM][general] Botathan-dev#6377:hello
+[8:13:53 PM][talking-to-myself] Botathan-dev#6377:hello world
+[8:16:26 PM][talking-to-myself] Botathan-dev#6377:hello
+[8:16:33 PM][general] Botathan-dev#6377:hello
+[8:16:33 PM][talking-to-myself] Botathan-dev#6377:general hello
+[8:18:36 PM][talking-to-myself] Botathan-dev#6377:hi
+[8:18:40 PM][general] Botathan-dev#6377:hi
+[8:21:04 PM][talking-to-myself] Botathan-dev#6377:hello

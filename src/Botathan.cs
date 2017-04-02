@@ -19,11 +19,12 @@ class Botathan
 
     public async Task Start()
     {
-        DiscordSocketConfig config = new DiscordSocketConfig();
-        config.AudioMode = Discord.Audio.AudioMode.Outgoing;
-        config.LogLevel = Discord.LogSeverity.Verbose;
 
-        client = new DiscordSocketClient(config);
+        client = new DiscordSocketClient(new DiscordSocketConfig
+        {
+            LogLevel = Discord.LogSeverity.Verbose
+        });
+
         commands = new CommandService();
         map = new DependencyMap();
 
@@ -36,7 +37,7 @@ class Botathan
 
         if (true)
         {
-            token = "MjU3MTk3MDQ0MTQ4NjAwODMy.Cy3M8g.yCb63W0qf6LxzzDq_0dwTBqq4Y4";
+            token = "Mjk4MTY1NTI0MDc0ODU2NDQ5.C8LczA.VZ0Lkw1-nzYdqrQz7IOUqYmOvwY";
             cmd = '/';
         }
 
@@ -115,21 +116,19 @@ class Botathan
     {
         while (true)
         {
-            string input = Console.ReadLine();
-            try
-            {
+                string input = Console.ReadLine();
                 if (input == "stop")
                 {
                     await client.StopAsync();
                     Environment.Exit(1);
                 }
-                if (input.IndexOf("say") == 0)
+                else if (input.IndexOf("say") == 0)
                 {
                     string[] chopedin = input.Split(null);
                     var guilds = client.Guilds;
                     foreach(var guild in guilds)
                     {
-                        if(guild.ToString() == chopedin[1])
+                        if(guild.ToString() == chopedin[1].Replace("_"," "))
                         {
                             var channels = guild.Channels;
                             foreach(var channel in channels)
@@ -138,17 +137,20 @@ class Botathan
                                 {
                                     IMessageChannel IMC = (IMessageChannel)channel;
                                     await IMC.SendMessageAsync(input.Substring(input.IndexOf(chopedin[3])));
-                                    break;
+                                    goto end;
                                 }
                             }
-                            break;
+                            foreach (IMessageChannel IMC in channels)
+                            {
+                                await IMC.SendMessageAsync(input.Substring(input.IndexOf(chopedin[2])));
+                                goto end;
+                            }
+                            goto end;
                         }
                     }
                 }
-            }catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
+                
+        end:;
         }
     }
 

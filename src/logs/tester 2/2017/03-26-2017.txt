@@ -1,0 +1,13 @@
+[9:28:16 PM][general] JoNation_#8528:/send cat
+[9:28:16 PM][general] Botathan-dev#6377:Unknown command.
+[9:28:21 PM][general] JoNation_#8528:/image cat
+[9:28:23 PM][general] Botathan-dev#6377:[-73 cat]
+[9:28:23 PM][general] Botathan-dev#6377:
+[9:31:58 PM][general] Botathan-dev#6377:hello
+[9:32:07 PM][general] JoNation_#8528:nice to see you old pall
+[9:32:29 PM][general] Botathan-dev#6377:You're such a nerd
+[9:32:32 PM][general] JoNation_#8528:thanks
+[9:33:04 PM][general] Botathan-dev#6377:/purge all
+[9:33:04 PM][general] Botathan-dev#6377:Deleted 99 messages, consider your secret safe
+[9:33:11 PM][general] JoNation_#8528:/purge all
+[9:33:11 PM][general] Botathan-dev#6377:Deleted 99 messages, consider your secret safe
